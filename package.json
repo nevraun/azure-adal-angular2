@@ -1,0 +1,20 @@
+{
+  "name": "azure-adal-angular2",
+  "version": "1.0.0",
+  "description": "Azure Active Directory OAuth2 module for Angular 2",
+  "main": "index.ts",
+  "author": "Alexandre Azevedo <alexndreazevedo@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@angular/core": "^2.4.7",
+    "@angular/http": "^2.4.7",
+    "adal-angular": "^1.0.13",
+    "rxjs": "^5.1.1"
+  },
+  "devDependencies": {
+    "codelyzer": "^2.0.0",
+    "ts-node": "^2.1.0",
+    "tslint": "^4.4.2",
+    "typescript": "^2.1.6"
+  }
+}
