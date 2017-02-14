@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from "rxjs";
 
-import { OAuth } from "../model/oauth.model";
-import { Config } from "../model/config.model";
+import { Config, OAuth, User } from "../model";
 
 declare const window: any;
 declare const AuthenticationContext: any;
@@ -179,9 +178,9 @@ export class AdalService {
    *
    * @returns {any}
    */
-  getUser(): Observable<any> {
-    return Observable.bindCallback((callback: (u: any) => void) => {
-      this.context.getUser((error: string, user: any) => {
+  getUser(): Observable<User> {
+    return Observable.bindCallback((callback: (u: User) => void) => {
+      this.context.getUser((error: string, user: User) => {
         if (error) {
           this.context.error('Error when getting user', error);
           callback(null);

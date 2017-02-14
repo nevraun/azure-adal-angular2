@@ -1,20 +1,31 @@
 {
   "name": "azure-adal-angular2",
-  "version": "1.0.0",
+  "version": "1.1.22",
   "description": "Azure Active Directory OAuth2 module for Angular 2",
-  "main": "index.ts",
+  "main": "./index.ts",
   "author": "Alexandre Azevedo <alexndreazevedo@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "@angular/core": "^2.4.7",
-    "@angular/http": "^2.4.7",
-    "adal-angular": "^1.0.13",
-    "rxjs": "^5.1.1"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexndreazevedo/azure-adal-angular2"
   },
-  "devDependencies": {
-    "codelyzer": "^2.0.0",
+  "scripts": {
+  },
+  "dependencies": {
+    "adal-angular": "^1.0.13",
+    "@types/adal": "^1.0.25"
+  },
+  "peerDependencies": {
+    "@angular/common": "^2.3.1",
+    "@angular/compiler": "^2.3.1",
+    "@angular/core": "^2.3.1",
+    "@angular/http": "^2.3.1",
+    "rxjs": "^5.1.1",
     "ts-node": "^2.1.0",
     "tslint": "^4.4.2",
+    "typescript": "^2.1.6"
+  },
+  "devDependencies": {
     "typescript": "^2.1.6"
   }
 }
