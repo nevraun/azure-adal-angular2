@@ -1,28 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from "rxjs";
 
-import { Config, OAuth, User } from "../model";
+import 'expose-loader?AuthenticationContext!adal-angular/lib/adal.js';
+
+import { OAuth } from "./oauth.model";
 
 declare const window: any;
-declare const AuthenticationContext: any;
 
 @Injectable()
 export class AdalService {
 
-  // Property to store adal context
   private context: any;
-  // Property to store function to create adal context
-  private contextFn: any;
-  // Property to store user info
+  private contextFn: adal.AuthenticationContextStatic = AuthenticationContext;
   private oauth: OAuth;
-  // Property to store user info subject
   private user$: Subject<any>;
 
   /**
    * Service constructor
    */
   constructor() {
-    this.contextFn = AuthenticationContext;
     this.oauth = {
       isAuthenticated: false,
       userName: '',
@@ -37,7 +33,7 @@ export class AdalService {
    *
    * @param configOptions
    */
-  init(config: Config) {
+  init(config: adal.Config) {
     if (!config) {
       throw new Error('You must set config, when calling init.');
     }
@@ -62,9 +58,9 @@ export class AdalService {
   /**
    * Returns adal context config
    *
-   * @returns {Config}
+   * @returns {adal.Config}
    */
-  get config(): Config {
+  get config(): adal.Config {
     return this.context.config;
   }
 
@@ -178,9 +174,9 @@ export class AdalService {
    *
    * @returns {any}
    */
-  getUser(): Observable<User> {
-    return Observable.bindCallback((callback: (u: User) => void) => {
-      this.context.getUser((error: string, user: User) => {
+  getUser(): Observable<adal.User> {
+    return Observable.bindCallback((callback: (u: adal.User) => void) => {
+      this.context.getUser((error: string, user: adal.User) => {
         if (error) {
           this.context.error('Error when getting user', error);
           callback(null);

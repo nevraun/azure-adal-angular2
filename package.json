@@ -1,31 +1,50 @@
 {
   "name": "azure-adal-angular2",
-  "version": "1.1.22",
+  "version": "1.2.3",
   "description": "Azure Active Directory OAuth2 module for Angular 2",
-  "main": "./index.ts",
   "author": "Alexandre Azevedo <alexndreazevedo@gmail.com>",
+  "keywords": [
+    "angular2",
+    "ng2",
+    "adal",
+    "azure",
+    "ad",
+    "angular2-adal",
+    "ng2-adal",
+    "adal-angular2",
+    "adal-ng2"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/alexndreazevedo/azure-adal-angular2"
   },
+  "main": "./dist/index.ts",
+  "typings": "./dist/index.ts",
   "scripts": {
+    "rimraf": "./node_modules/.bin/rimraf",
+    "prepublish": "npm run rimraf dist && npm run tsc",
+    "tsc": "./node_modules/.bin/tsc"
+  },
+  "engines": {
+    "node": ">=5.0.0"
   },
   "dependencies": {
-    "adal-angular": "^1.0.13",
-    "@types/adal": "^1.0.25"
-  },
-  "peerDependencies": {
     "@angular/common": "^2.3.1",
-    "@angular/compiler": "^2.3.1",
     "@angular/core": "^2.3.1",
     "@angular/http": "^2.3.1",
-    "rxjs": "^5.1.1",
-    "ts-node": "^2.1.0",
-    "tslint": "^4.4.2",
-    "typescript": "^2.1.6"
+    "@angular/platform-browser": "^2.3.1",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.0.1",
+    "zone.js": "^0.7.2",
+    "expose-loader": "^0.7.3",
+    "@types/adal": "^1.0.25",
+    "adal-angular": "^1.0.13"
   },
   "devDependencies": {
-    "typescript": "^2.1.6"
+    "rimraf": "^2.5.4",
+    "ts-node": "1.2.1",
+    "tslint": "^4.4.2",
+    "typescript": "~2.0.3"
   }
 }

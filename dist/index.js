@@ -1,4 +1,9 @@
-export * from './src/adal.module';
-export * from './src/model';
-export * from './src/service';
-//# sourceMappingURL=C:/Development/public/wolters-kluwer/azure-adal-angular2/index.js.map
+"use strict";
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+__export(require('./src/adal.module'));
+__export(require('./src/adal.service'));
+__export(require('./src/adal-http.service'));
+__export(require('./src/oauth.model'));
+//# sourceMappingURL=index.js.map
