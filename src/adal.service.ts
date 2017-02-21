@@ -76,9 +76,9 @@ export class AdalService {
   /**
    * Returns user info subject as observable
    *
-   * @returns {Observable<any>}
+   * @returns {Observable<adal.User>}
    */
-  get userInfo$(): Observable<any> {
+  get userInfo$(): Observable<adal.User> {
     return this.user$.asObservable();
   }
 
@@ -157,7 +157,7 @@ export class AdalService {
    * @returns {any}
    */
   acquireToken(resource: string): Observable<string> {
-    return Observable.bindCallback((callback: (s: string) => void) => {
+    return Observable.bindCallback((callback: (s: string) => string) => {
       this.context.acquireToken(resource, (error: string, tokenOut: string) => {
         if (error) {
           this.context.error('Error when acquiring token for resource: ' + resource, error);
@@ -175,7 +175,7 @@ export class AdalService {
    * @returns {any}
    */
   getUser(): Observable<adal.User> {
-    return Observable.bindCallback((callback: (u: adal.User) => void) => {
+    return Observable.bindCallback((callback: (u: adal.User) => adal.User) => {
       this.context.getUser((error: string, user: adal.User) => {
         if (error) {
           this.context.error('Error when getting user', error);
