@@ -3,8 +3,6 @@ import { Observable, Subject } from "rxjs";
 
 import 'expose-loader?AuthenticationContext!adal-angular/lib/adal.js';
 
-import { OAuth } from "./oauth.model";
-
 declare const window: any;
 
 @Injectable()
@@ -12,19 +10,14 @@ export class AdalService {
 
   private context: any;
   private contextFn: adal.AuthenticationContextStatic = AuthenticationContext;
-  private oauth: OAuth;
+  private token: string;
+  private user: adal.User;
   private user$: Subject<any>;
 
   /**
    * Service constructor
    */
   constructor() {
-    this.oauth = {
-      isAuthenticated: false,
-      userName: '',
-      loginError: '',
-      profile: {}
-    };
     this.user$ = <Subject<any>> new Subject();
   }
 
@@ -65,12 +58,30 @@ export class AdalService {
   }
 
   /**
-   * Returns user info
+   * Returns user
    *
-   * @returns {OAuth}
+   * @returns {adal.User}
    */
-  get userInfo(): OAuth {
-    return this.oauth;
+  getUser(): adal.User {
+    return this.user;
+  }
+
+  /**
+   * Returns token
+   *
+   * @returns {string}
+   */
+  getToken(): string {
+    return this.token;
+  }
+
+  /**
+   * Returns the authentication status
+   *
+   * @returns {boolean}
+   */
+  isAuthenticated(): boolean {
+    return (!!this.user) ? true : false;
   }
 
   /**
@@ -78,7 +89,7 @@ export class AdalService {
    *
    * @returns {Observable<adal.User>}
    */
-  get userInfo$(): Observable<adal.User> {
+  get userSubscription$(): Observable<adal.User> {
     return this.user$.asObservable();
   }
 
@@ -150,6 +161,15 @@ export class AdalService {
   }
 
   /**
+   * Returns cached user
+   *
+   * @returns {adal.User}
+   */
+  getCachedUser(): adal.User {
+    return this.context.getCachedUser();
+  }
+
+  /**
    * Function to acquire token for given resource
    *
    * @param resource
@@ -164,24 +184,6 @@ export class AdalService {
           callback(null);
         } else {
           callback(tokenOut);
-        }
-      });
-    })();
-  }
-
-  /**
-   * Function to get user profile
-   *
-   * @returns {any}
-   */
-  getUser(): Observable<adal.User> {
-    return Observable.bindCallback((callback: (u: adal.User) => adal.User) => {
-      this.context.getUser((error: string, user: adal.User) => {
-        if (error) {
-          this.context.error('Error when getting user', error);
-          callback(null);
-        } else {
-          callback(user);
         }
       });
     })();
@@ -229,21 +231,7 @@ export class AdalService {
    * @private
    */
   private _updateDataFromCache(resource: string): void {
-
-    const token = this.context.getCachedToken(resource);
-
-    this.oauth.isAuthenticated = token !== null && token.length > 0;
-
-    const user = this.context.getCachedUser();
-
-    if (user) {
-      this.oauth.userName = user.userName;
-      this.oauth.profile = user.profile;
-      this.oauth.loginError = this.context.getLoginError();
-    } else {
-      this.oauth.userName = '';
-      this.oauth.profile = {};
-      this.oauth.loginError = '';
-    }
+    this.token = this.getCachedToken(resource);
+    this.user = this.getCachedUser();
   };
 }
