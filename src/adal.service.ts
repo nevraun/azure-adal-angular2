@@ -26,7 +26,13 @@ export class AdalService {
    *
    * @param configOptions
    */
-  init(config: adal.Config) {
+  init(config: adal.Config, production: boolean = true) {
+
+    if (!production) {
+      window.Logging.level = 3;
+      window.Logging.log = window.console.log;
+    }
+
     if (!config) {
       throw new Error('You must set config, when calling init.');
     }

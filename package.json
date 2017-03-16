@@ -1,6 +1,6 @@
 {
   "name": "@corsearch/azure-adal-angular2",
-  "version": "2.0.5",
+  "version": "2.1.1",
   "description": "Azure Active Directory OAuth2 module for Angular 2",
   "author": "Alexandre Azevedo <alexndreazevedo@gmail.com>",
   "keywords": [
