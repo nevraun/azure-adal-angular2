@@ -1,7 +1,7 @@
 {
   "name": "@corsearch/azure-adal-angular2",
-  "version": "2.1.1",
-  "description": "Azure Active Directory OAuth2 module for Angular 2",
+  "version": "2.1.2",
+  "description": "Azure Active Directory OAuth2 service for Angular 2",
   "author": "Alexandre Azevedo <alexndreazevedo@gmail.com>",
   "keywords": [
     "angular2",
@@ -30,21 +30,21 @@
     "node": ">=5.0.0"
   },
   "dependencies": {
-    "@angular/common": "^2.3.1",
-    "@angular/core": "^2.3.1",
-    "@angular/http": "^2.3.1",
-    "@angular/platform-browser": "^2.3.1",
+    "@angular/common": "^2.4.0",
+    "@angular/core": "^2.4.0",
+    "@angular/http": "^2.4.0",
+    "@angular/platform-browser": "^2.4.0",
     "core-js": "^2.4.1",
     "rxjs": "^5.0.1",
-    "zone.js": "^0.7.2",
+    "zone.js": "^0.7.6",
     "expose-loader": "^0.7.3",
     "@types/adal": "^1.0.25",
     "adal-angular": "^1.0.13"
   },
   "devDependencies": {
     "rimraf": "^2.5.4",
-    "ts-node": "1.2.1",
-    "tslint": "^4.4.2",
-    "typescript": "~2.0.3"
+    "ts-node": "~2.0.0",
+    "tslint": "~4.4.2",
+    "typescript": "~2.0.0"
   }
 }

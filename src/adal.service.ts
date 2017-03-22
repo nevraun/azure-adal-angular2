@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from "rxjs";
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/observable/bindCallback';
 
 import 'expose-loader?AuthenticationContext!adal-angular/lib/adal.js';
 
@@ -38,7 +40,8 @@ export class AdalService {
     }
 
     // redirect and logout_redirect are set to current location by default
-    let { hash, href } = window.location;
+    const { hash } = window.location;
+    let { href } = window.location;
 
     if (hash) {
       href = href.replace(hash, '');
@@ -130,24 +133,24 @@ export class AdalService {
 
     if (this.isCallback(hash)) {
 
-      const requestInfo = this.context.getRequestInfo(hash);
+      const info = this.context.getRequestInfo(hash);
 
-      this.context.saveTokenFromHash(requestInfo);
+      this.context.saveTokenFromHash(info);
 
-      if ((requestInfo.requestType === this.context.REQUEST_TYPE.RENEW_TOKEN) && window.parent && (window.parent !== window)) {
+      if ((info.requestType === this.context.REQUEST_TYPE.RENEW_TOKEN) && window.parent && (window.parent !== window)) {
         // iframe call but same single page
-        const callback = window.parent.callBackMappedToRenewStates[requestInfo.stateResponse];
+        const callback = window.parent.callBackMappedToRenewStates[info.stateResponse];
 
         if (callback) {
 
           const description = this.context._getItem(this.context.CONSTANTS.STORAGE.ERROR_DESCRIPTION);
-          const token = requestInfo.parameters[this.context.CONSTANTS.ACCESS_TOKEN] || requestInfo.parameters[this.context.CONSTANTS.ID_TOKEN];
-          const error = this.context._getItem(this.context.CONSTANTS.STORAGE.ERROR)
+          const token = info.parameters[this.context.CONSTANTS.ACCESS_TOKEN] || info.parameters[this.context.CONSTANTS.ID_TOKEN];
+          const error = this.context._getItem(this.context.CONSTANTS.STORAGE.ERROR);
 
           callback(description, token, error);
         }
 
-      } else if (requestInfo.requestType === this.context.REQUEST_TYPE.LOGIN) {
+      } else if (info.requestType === this.context.REQUEST_TYPE.LOGIN) {
 
         this._updateDataFromCache(this.config.loginResource);
         this.user$.next();
