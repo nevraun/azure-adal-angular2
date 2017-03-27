@@ -39,17 +39,6 @@ export class AdalService {
       throw new Error('You must set config, when calling init.');
     }
 
-    // redirect and logout_redirect are set to current location by default
-    const { hash } = window.location;
-    let { href } = window.location;
-
-    if (hash) {
-      href = href.replace(hash, '');
-    }
-
-    config.redirectUri = config.redirectUri || href;
-    config.postLogoutRedirectUri = config.postLogoutRedirectUri || href;
-
     // create instance with given config
     this.context = new this.contextFn(config);
 
