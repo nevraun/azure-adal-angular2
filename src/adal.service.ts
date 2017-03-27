@@ -39,6 +39,9 @@ export class AdalService {
       throw new Error('You must set config, when calling init.');
     }
 
+    // loginResource must be equal to clientId
+    config = Object.assign(config, { loginResource: config.clientId });
+
     // create instance with given config
     this.context = new this.contextFn(config);
 
